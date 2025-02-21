@@ -14,25 +14,26 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError(""); // Clear previous errors
+  
     try {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: false, // Prevent automatic redirection by NextAuth
       });
-
-      if (res.error) {
-    
+  
+      if (res?.error) {
         setError("Invalid Credentials");
         return;
       }
-
-      router.push("/");
+  
+      router.push("/"); // Manually navigate after successful login
     } catch (error) {
       console.log(error);
     }
   };
+    
 
   return (
     <div className="grid place-items-center h-screen">
